@@ -1,0 +1,194 @@
+
+		packet structure protocol 
+_______________________________________
+***************************************
+
+
+*requests = attempting to initiate a connection
+*comms = once a connection is established comms = communications
+start byte = 4
+
+		Heartbeat packets
+____________________________________
+no of bytes: 2
+1: CM = CM_HEARTBEAT
+2: packet ID
+
+
+		Update packets
+___________________________________
+----------sending-----------------
+0: CM = CM_UPDATE_SND
+1: update ID
+2: update type
+
+---------recieveing----------------
+0: CM = CM_UPDATE_RCV
+1: update ID
+
+		Requests
+____________________________________
+0: CM = CM_NORMREQUEST
+1: request id
+2: current heartbeat ID - These are usually 0.
+3: current update ID	-
+
+0: CM = CM_NORMREPLY or reply as to why server is not accepted. e.g. server full
+1: request id
+2: current heartbeat ID
+3: current update ID
+
+
+**IMPORTANT - ALL PACKET locations proceed the starting packet byte:
+i.e. where it says "0: " that actually means place 4 in the packet, and
+"1: " means place 5 in the packet, as the 4th place is the first after all
+the networking stuff
+
+Game Networking Implemenation protocol
+_____________________________________
+*************************************
+
+
+		client <-> server
+___________________________________
+---------------requests---------------
+client to server:
+0: 69 - specifies request is from client not host
+
+server to client:
+0: no of hosts. max MAX_HOSTS
+2: host data - list of hosts in JNP::Host struct form
+
+--------------Updates-----------------
+client to server:
+no updates currently implemented
+
+server to client:
+	update types:
+	ADD_HOST
+		JNP::Host struct of Host to add
+	REMOVE_HOST:
+		2 bytes, host index
+	CHANGE_STATE
+		host index - 2 bytes
+		new state - 1 byte
+	ADD_PLAYER
+		host index - 2 bytes
+		no of players - 2 bytes
+	REMOVE_PLAYER
+		host index - 2 bytes
+		no of players - 2 bytes
+______________________________________
+	
+
+
+
+		host <-> server
+______________________________________
+----------requests--------------------
+host to server:
+0: 66 - specifies request is from host not client
+1: lobby name -				21 bytes
+22:state -					1 byte
+23:no of players -			2 bytes
+25:max players -			2 bytes
+
+server to host:
+no extra data
+
+---------------Updates----------------
+Server -> Host
+No Current updates implemented
+
+Host -> Server66 
+See client<-> host updates, updates as same as host updates from there
+valid updates:
+	change state
+	add player
+	remove player
+______________________________________
+
+
+
+
+
+		client <-> host
+______________________________________
+
+
+-------------requests-----------------
+client to host:
+0: name - 21 bytes
+	
+host to client:
+0: int max Players 
+2: int nPlayers
+4: lobby name -		up to 20 bytes
+6: next: null terminated strings of all players. dont include player just accepted
+
+
+
+--------------updates-----------------
+client to host:
+Lobby:
+	If update type is CHAT_XTND
+		0: chat input - 21 bytes
+In Game:
+	if update type is NEW_DIR
+		0: new direction
+	if update type is LINE_CATCHUP:
+		4: 2 bytes - index of player that has changed
+		6: 2 bytes - number of lines for catch up
+		8: 2 bytes - line index for started catch up	
+
+host to client:
+lobby: 
+	update type (see HOST_UPDATES):
+		CHANGE_STATE (initialisation of lobby):
+			0: lobby state
+			1: int max Players 
+			3: int nPlayers
+			5: lobby name -	up to 21 bytes
+			next: null terminated strings of all players. dont inc player just accepted
+		ADD_PLAYER:
+			0: nPlayers
+			2: 21 bytes - new player name
+		REMOVE_PLAYER:
+			0: nPlayers
+			2: 2 bytes - index of player to remove
+		EDIT_LOB_NAME:
+			0: unused
+			2: 21 bytes - new lobby name
+		EDIT_MAX_PLYS:
+			0: unused
+			2: 2 bytes - new max players
+		H_CHAT_XTND:
+			0: sounds file index (starts at 1, so 0 if none)
+			1: chat message	
+countdown:
+	if update type is CHANGE_STATE
+		0: countdown programstate
+	if update type is COUNTDOWN_SYNC
+		0: 1 byte - countdown seconds ELAPSED
+
+playing:
+	if update type is CHANGESTATE (initialisation of game)
+		0: nPlayers - 2 bytes
+		next, list of playernames compact  for smaller names, i.e. do not pad to 21 bytes
+		for each player
+		0: player data - 1 byte
+		1: 1st lineS struct - 8 bytes
+		9: playercolour - 4 bytes
+		13: playername
+	if update is NEW_DIR:
+		0: player index
+		2: new current line number
+		4: new direction
+		5: 8 bytes - line structure for last line
+	if update is PLR_VAR:
+		0: player index
+		2: playerdata ( see Player.h ) - 1 byte
+	if update is GAME_SYNC
+		for list of players:
+		current line struct
+______________________________________

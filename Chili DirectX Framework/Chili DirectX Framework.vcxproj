@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Assets\bitmap.cpp" />
+    <ClCompile Include="..\Assets\D3DGraphics.cpp" />
+    <ClCompile Include="..\Assets\GameClient.cpp" />
+    <ClCompile Include="..\Assets\GameHost.cpp" />
+    <ClCompile Include="..\Assets\GameMaster.cpp" />
+    <ClCompile Include="..\Assets\GameNetworking.cpp" />
+    <ClCompile Include="..\Assets\GameOffline.cpp" />
+    <ClCompile Include="..\Assets\Keyboard.cpp" />
+    <ClCompile Include="..\Assets\Lobby.cpp" />
+    <ClCompile Include="..\Assets\Master.cpp" />
+    <ClCompile Include="..\Assets\MasterMenu.cpp" />
+    <ClCompile Include="..\Assets\MenuBase.cpp" />
+    <ClCompile Include="..\Assets\Networking.cpp" />
+    <ClCompile Include="..\Assets\Player.cpp" />
+    <ClCompile Include="..\Assets\ServerConnection.cpp" />
+    <ClCompile Include="..\Assets\Sound.cpp" />
+    <ClCompile Include="..\Assets\Timer.cpp" />
+    <ClCompile Include="..\Assets\Windows.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Assets\bitmap.h" />
+    <ClInclude Include="..\Assets\D3DGraphics.h" />
+    <ClInclude Include="..\Assets\Game.h" />
+    <ClInclude Include="..\Assets\GameNetworking.h" />
+    <ClInclude Include="..\Assets\Keyboard.h" />
+    <ClInclude Include="..\Assets\Lobby.h" />
+    <ClInclude Include="..\Assets\Master.h" />
+    <ClInclude Include="..\Assets\MasterMenu.h" />
+    <ClInclude Include="..\Assets\MenuBase.h" />
+    <ClInclude Include="..\Assets\Networking.h" />
+    <ClInclude Include="..\Assets\Player.h" />
+    <ClInclude Include="..\Assets\Resource.h" />
+    <ClInclude Include="..\Assets\ServerConnection.h" />
+    <ClInclude Include="..\Assets\Sound.h" />
+    <ClInclude Include="..\Assets\Timer.h" />
+    <ClInclude Include="..\Assets\WinSys.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\Networking.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\Assets\theresource.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9E5C3038-85D6-4CEC-A331-0DAE21E12415}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ChiliDirectXFramework</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(DXSDK_DIR)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(DXSDK_DIR)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>dxerr.lib;dxguid.lib;d3dx9.lib;d3dx10.lib;d3d9.lib;winmm.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>dxerr.lib;dxguid.lib;d3dx9.lib;d3dx10.lib;d3d9.lib;winmm.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
